@@ -4,8 +4,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "cat CLAUDE.md 2>/dev/null || true",
-          "statusMessage": "Loading CLAUDE.md rules"
+          "command": "cat CLAUDE.md 2>/dev/null || true"
         }
       ]
     }
@@ -15,8 +14,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/extract-core.sh\"",
-          "statusMessage": "Injecting core rules"
+          "command": "if [ -f CLAUDE.md ]; then sed -n '/<!-- CORE -->/,/<!-- \\/CORE -->/p' CLAUDE.md | grep -v '<!-- \\?/\\?CORE -->'; fi"
         }
       ]
     }
@@ -26,8 +24,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/check-signal.sh\"",
-          "statusMessage": "Checking memory signal"
+          "command": "response=$(cat); if ! echo \"$response\" | grep -q '\\[✓ rules\\]' && [ -f CLAUDE.md ]; then echo '⚠️ MEMORY ALERT: Signal missing.' && echo '' && echo 'Required actions:' && echo '1. Re-read the project rules below' && echo '2. Review your previous response for rule violations' && echo '3. Resume with [✓ rules] on future responses' && echo '' && cat CLAUDE.md; fi"
         }
       ]
     }
