@@ -15,6 +15,20 @@ A hook-based system that:
 
 ## Installation
 
+### Option 1: Install as Plugin (Recommended)
+
+```bash
+# Add the marketplace
+/plugin marketplace add brannon-bowden/claude-md-memory-guardian
+
+# Install the plugin
+/plugin install memory-guardian@brannon-bowden
+```
+
+Then create a `CLAUDE.md` in your project with `<!-- CORE -->` tags (see format below).
+
+### Option 2: Manual Installation
+
 1. Copy the `.claude/` directory to your project
 2. Create or update your `CLAUDE.md` with `<!-- CORE -->` tags
 3. Add the Memory Signal section to your `CLAUDE.md`
@@ -49,21 +63,45 @@ If you cannot remember these rules, say so immediately.
 
 When Claude forgets and stops adding `[✓ rules]`, the system automatically re-injects your full CLAUDE.md and instructs Claude to audit its previous response.
 
-## Files
+## How It Works
 
 ```
-.claude/
-├── settings.local.json    # Hook configuration
-└── hooks/
-    ├── extract-core.sh    # Extracts <!-- CORE --> tagged content
-    └── check-signal.sh    # Checks for [✓ rules] signal
+┌─────────────────────────────────────────────────────┐
+│                   CLAUDE.md                         │
+│  (your rules file with <!-- CORE --> tags)         │
+└─────────────────────┬───────────────────────────────┘
+                      │
+        ┌─────────────┼─────────────┐
+        ▼             ▼             ▼
+   ┌─────────┐  ┌───────────┐  ┌──────────────┐
+   │ Session │  │  Prompt   │  │   Response   │
+   │  Start  │  │  Submit   │  │   Monitor    │
+   └────┬────┘  └─────┬─────┘  └──────┬───────┘
+        │             │               │
+   Full file     Core rules      Check for
+   injection     extraction      [✓ rules]
+                                      │
+                              Missing? → Re-inject
+                                        + Self-audit
+```
+
+## Plugin Files
+
+```
+.claude-plugin/
+├── plugin.json        # Plugin manifest
+└── marketplace.json   # Marketplace configuration
+hooks/
+├── hooks.json         # Hook definitions
+├── extract-core.sh    # Extracts <!-- CORE --> tagged content
+└── check-signal.sh    # Checks for [✓ rules] signal
 ```
 
 ## Customization
 
-- **Change the signal**: Edit the marker in both `CLAUDE.md` and `check-signal.sh`
+- **Change the signal**: Edit the marker in both your `CLAUDE.md` and fork `check-signal.sh`
 - **Adjust core content**: Add/remove `<!-- CORE -->` tags in your `CLAUDE.md`
-- **Disable per-prompt injection**: Remove the UserPromptSubmit hook if too noisy
+- **Disable per-prompt injection**: Remove the plugin and use manual installation without UserPromptSubmit hook
 
 ## License
 

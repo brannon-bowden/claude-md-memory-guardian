@@ -1,0 +1,27 @@
+{
+  "name": "brannon-bowden",
+  "owner": {
+    "name": "Brannon Bowden",
+    "url": "https://github.com/brannon-bowden"
+  },
+  "description": "Claude Code plugins by Brannon Bowden",
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "name": "memory-guardian",
+      "description": "Prevents Claude from forgetting CLAUDE.md rules after context compaction",
+      "version": "1.0.0",
+      "source": ".",
+      "author": {
+        "name": "Brannon Bowden",
+        "url": "https://github.com/brannon-bowden"
+      },
+      "homepage": "https://github.com/brannon-bowden/claude-md-memory-guardian",
+      "repository": "https://github.com/brannon-bowden/claude-md-memory-guardian",
+      "license": "MIT",
+      "keywords": ["memory", "claude-md", "hooks", "context", "compaction"],
+      "category": "productivity",
+      "tags": ["hooks", "memory", "rules"]
+    }
+  ]
+}

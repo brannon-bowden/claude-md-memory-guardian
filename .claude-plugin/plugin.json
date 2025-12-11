@@ -1,0 +1,14 @@
+{
+  "name": "memory-guardian",
+  "version": "1.0.0",
+  "description": "Prevents Claude from forgetting CLAUDE.md rules after context compaction using behavioral signals and multi-layer injection",
+  "author": {
+    "name": "Brannon Bowden",
+    "url": "https://github.com/brannon-bowden"
+  },
+  "homepage": "https://github.com/brannon-bowden/claude-md-memory-guardian",
+  "repository": "https://github.com/brannon-bowden/claude-md-memory-guardian",
+  "license": "MIT",
+  "keywords": ["memory", "claude-md", "hooks", "context", "compaction"],
+  "hooks": "./hooks/hooks.json"
+}
