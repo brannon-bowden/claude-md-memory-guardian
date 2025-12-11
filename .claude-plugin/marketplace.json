@@ -11,7 +11,7 @@
       "name": "memory-guardian",
       "description": "Prevents Claude from forgetting CLAUDE.md rules after context compaction",
       "version": "1.0.0",
-      "source": ".",
+      "source": "./",
       "author": {
         "name": "Brannon Bowden",
         "url": "https://github.com/brannon-bowden"
